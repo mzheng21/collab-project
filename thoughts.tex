@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{breqn}
+\addtolength{\evensidemargin}{-.5in}
+\addtolength{\oddsidemargin}{-.5in}
+\addtolength{\textwidth}{0.8in}
+\addtolength{\textheight}{0.8in}
+\addtolength{\topmargin}{-.4in}
+\newtheoremstyle{quest}{\topsep}{\topsep}{}{}{\bfseries}{}{ }{\thmname{#1}\thmnote{ #3}.}
+\theoremstyle{quest}
+\newtheorem*{definition}{Definition}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{question}{Question}
+\newtheorem*{exercise}{Exercise}
+\newtheorem*{challengeproblem}{Challenge Problem}
+\newcommand{\name}{%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% put your name here, so we know who to give credit to %%
+Blah}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\hw}{%%%%%%%%%%%%%%%%%%%%
+%% and which homework assignment is it? %%%%%%%%%
+%% put the correct number below              %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{\vspace{-50pt}
+\Huge \name
+\\\vspace{20pt}
+\huge Michelle Zheng\hfill }
+\author{}
+\date{}
+\pagestyle{myheadings}
+%\markright{\name\hfill Homework \hw\qquad\hfill}
+
+%These are some of the commands that I've added which I use a lot
+
+%% If you want to define a new command, you can do it like this:
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+%% If you want to use a function like ''sin'' or ''cos'', you can do it like this
+%% (we probably won't have much use for this)
+% \DeclareMathOperator{\sin}{sin}   %% just an example (it's already defined)
+\newcommand{\ang}[1]{\left\langle #1 \right\rangle}
+\newcommand{\abs}[1]{\left \vert #1 \right \vert}
+\DeclareMathOperator{\spn}{span }
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Nm}{Nm}
+\DeclareMathOperator{\coker}{coker }
+\DeclareMathOperator{\colim}{colim }
+\newcommand{\nin}{\not\in}
+\newcommand{\p}{\partial}
+\newcommand{\ok}{{\mathcal{O}_K}}
+\newcommand{\mfp}{{\mathfrak{p}}}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+$N$ agents with ability $\theta$ with support $(0,1)$ and cdf $F(\cdot)$. \\
+Let $G(V,E)$ be a graph defined as follows:
+\begin{enumerate}
+    \item $V = \{v_1, \dots, v_N\}$,
+    \item $E = \{v_iv_j | v_i \text{ and } v_j \text{ collaborate}\}$.
+\end{enumerate}
+Each agent $i$ has production output $\phi(\theta_i, \{\theta_j | v_j\in N(v_i)\})$. For now we only allow collaboration to affect the 2 agents who are collaborating (so considering only effects on edges in contrast to on any paths connecting agents). Only agents with the $n<N$ highest outputs will be promoted, and agents all value being promoted equally / every agent wants to choose to collaborate or not in order to maximize their output ranking.
+$\phi(\theta_i,\{\theta_j|v_j\in N(v_i)\})$ is monotonic increasing in $\theta_i$ and $\theta_j|v_j\in N(v_i)$, and for all $j$ we have $\frac{d\phi}{d\theta_i} > \frac{d\phi}{d\theta_j}$ (so if a set of people all collaborate with each other and only each other, the higher ability ones will still have higher output).
+
+\section{Possible settings}
+Competitive workplaces, political factions
+
+\section{Thoughts, feelings, etc.}
+For now we assume that collaboration occurs in a one stage process where people propose collaboration to each other, and all / only those who mutually propose form collaborations. In the case that an agent is indifferent between collaborating and not, the agent will always collaborate. 
+
+First consider what happens if everyone knows each other's ability. Then consider what happens if everyone only knows the distribution of everyone's abilities. What happens in between (as people know more / less accurately each others' abilities?) Suppose we allow people to reveal their ability types before choosing to collaborate, then what happens?
+
+Consider what might happen if we instead frame this as a proposal then accept/reject round? So like in stage 1 agents choose whether or not to propose collaboration to each other, then in stage 2 agents who are proposed to will either accept/reject their proposals, and in the end only the accepted proposals will form collaborations. Would the only equilibrium here be that no one proposes?
+
+How does the decision to collaborate change based on how much information each agent knows about the distribution of other agents' abilities? 
+
+What are some other questions we could ask?
+
+\subsection{Example}
+$N = \{v_1, v_2, v_3\}$, and $\theta_1<\theta_2<\theta_3$. 
+
+Just for this example let $\phi(\theta_i, \{\theta_j|v_j\in N(v_i)\}) = \theta_i + \alpha\sum\theta_j$ with $\alpha < 1$. 
+
+Suppose only 1 agent gets promoted. 
+If no one collaborates, then agent 3 gets promoted. 
+If only (1,2) collaborate, then $\phi_1 = \theta_1 +\alpha\theta_2$, $\phi_2 = \theta_2+\alpha\theta_1$, and $\phi_3 = \theta_3$. So agent 3 is promoted if $\alpha\theta_1\leq \theta_3-\theta_2$, and agent 2 is promoted otherwise.
+If only (1,3) or only (2,3) collaborate, then $\phi_3 > \phi_1$ and $\phi_3 > \phi_2$ so agent 3 is promoted. 
+If all agents collaborate, then $\phi_3 > \phi_2 > \phi_1$, and agent 3 is promoted.
+
+
+\subsubsection{Everyone knows everyones' $\theta$}
+If $\alpha\theta_1\leq \theta_3-\theta_2$, then agent 3 is always promoted, and since agents collaborate when indifferent, all 3 agents will collaborate. 
+If $\alpha\theta_1>\theta_3-\theta_2$, then agent 3 knows agent 2 will collaborate with agent 1. So agent 3 will respond by also collaborating with agent 1. Agent 1 is indifferent between not collaborating, only with 2, only with 3, or with 2 and 3, so agent 1 will collaborate with 2 and 3 and 3 will be promoted. 
+
+%\subsubsection{Everyone just knows cdf of $\theta$}
+%Suppose $\theta$ is drawn iid from a uniform distribution on [0,1]. So then agent $i$ believes that agent $j$ has higher ability than agent $i$ with probability $1-\theta_i$.
+
+%What happens here? work this out
+
+%\subsubsection{Allow disclosure of ability with payment}
+
+Let the decision of promotion be a probabilistic function increasing in agent's rank (this way we always have interior solutions)
+
+The probability that an agent is promoted is 
+
+What if we allow payments between agents?
+
+
+
+\section{To do}
+\begin{enumerate}
+    \item 
+    Suppose there are $N$ agents who all want to be promoted. Agents are ranked based on their total ability $T(\theta_i, \theta_{j\in N(i)})$, which is a function of their ability and their collaborators' abilities, such that $\frac{\partial T}{\partial \theta_i} > \frac{\partial T}{\partial \theta_j}$. If multiple agents have the same $n$th highest total ability, those agents are all given rank $n$.
+    Their chance of being promoted is a probabilistic function $P(\cdot)\in[0,1]$ increasing in being ranked higher and their total ability. Each agent knows each other's abilities $\theta$, and a collaboration forms iff it maximizes $P(\cdot)$ for both agents. 
+    \subsection{Example}
+    Let's look at a numerical example:
+
+    Let there be 3 agents with $0<\theta_1<\theta_2<\theta_3\leq1$, and let $\overline{\theta}$ denote the maximum value $\theta$ can attain (so here we have $\overline{\theta} = 1$). Let's look at the following example $T$ and $P$:
+    
+    \[T(\theta_i, \theta_{j\in N(i)}) = \frac{1}{2\overline{\theta}}\left(\theta_i + \frac{1}{N} \sum_{j\in N(i)}\theta_j\right)\] and $P(rank, T_i) = \frac{1}{2}\frac{N-rank}{N} + \frac{1}{2}T_i$. Note that the $\frac{1}{2}$ coefficients in $P$ are there to bound it between 0 and 1, since both components are bounded between 0 and 1. For now let's just weight rank and total ability equally.
+
+    Suppose $\theta_1 = \frac{1}{3}$, $\theta_2 = \frac{2}{3}$, and $\theta_3 = 1$. If no one collaborates, then $rank_3 = 1$, $rank_2 = 2$, and $rank_1 = 3$. So $P_1 = \frac{1}{2}\frac{3-3}{3}+\frac{1}{2}\frac{1}{2}\left(\frac{1}{3}\right) = \frac{1}{12}$, $P_2 = \frac{1}{2}\frac{3-2}{3}+\frac{1}{2}\frac{1}{2}\left(\frac{2}{3}\right) = \frac{1}{3}$, and $P_3 = \frac{1}{2}\frac{3-1}{3}+\frac{1}{2}\frac{1}{2}(1) = \frac{7}{12}$.
+
+    Can anyone benefit from collaboration? 
+
+    Note that a set of agents collaborating only with each other will never harm any agent in the set, since a worse ranked agent's total ability will never surpass a better ranked agent's total ability through this collaboration alone.
+
+    Cases:
+    \begin{enumerate}
+        \item no edges
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{6}$
+            \item $T_2 = \frac{1}{3}$
+            \item $T_3 = \frac{1}{2}$
+        \end{enumerate}
+        \item (1,2)
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{2}(\frac{1}{3}+\frac{1}{3}\frac{2}{3}) = \frac{5}{18}$
+            \item $T_2 = \frac{1}{2}(\frac{2}{3}+\frac{1}{3}\frac{1}{3}) = \frac{7}{18}$
+            \item $T_3 = \frac{1}{2}$
+        \end{enumerate}
+        \item (1,3)
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{2}(\frac{1}{3}+\frac{1}{3}(1)) = \frac{1}{3}$
+            \item $T_2 = \frac{1}{3}$
+            \item $T_3 = \frac{1}{2}(1+\frac{1}{3}\frac{1}{3}) = \frac{5}{9}$
+        \end{enumerate}
+        \item (2,3)
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{6}$
+            \item $T_2 = \frac{1}{2}(\frac{2}{3}+\frac{1}{3}(1)) = \frac{1}{2}$
+            \item $T_3 = \frac{1}{2}(1+\frac{1}{3}\frac{2}{3}) = \frac{11}{18}$
+        \end{enumerate}
+        \item (1,2); (1,3)
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{2}(\frac{1}{3}+\frac{1}{3}(\frac{2}{3}+1)) = \frac{4}{9}$
+            \item $T_2 = \frac{1}{2}(\frac{2}{3}+\frac{1}{3}\frac{1}{3}) = \frac{7}{18}$
+            \item $T_3 = \frac{1}{2}(1+\frac{1}{3}\frac{1}{3}) = \frac{5}{9}$
+        \end{enumerate}
+        \item (1,2); (2,3)
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{2}(\frac{1}{3}+\frac{1}{3}\frac{2}{3}) = \frac{5}{18}$
+            \item $T_2 = \frac{1}{2}(\frac{2}{3}+\frac{1}{3}(\frac{1}{3}+1)) = \frac{5}{9}$
+            \item $T_3 = \frac{1}{2}(1+\frac{1}{3}\frac{2}{3}) = \frac{11}{18}$
+        \end{enumerate}
+        \item (1,3); (2,3)
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{2}(\frac{1}{3}+\frac{1}{3}(1)) = \frac{1}{3}$
+            \item $T_2 = \frac{1}{2}(\frac{2}{3}+\frac{1}{3}(1)) = \frac{1}{2}$
+            \item $T_3 = \frac{1}{2}(1+\frac{1}{3}(\frac{1}{3}+\frac{2}{3})) = \frac{2}{3}$
+        \end{enumerate}
+        \item (1,2); (1,3); (2,3)
+        \begin{enumerate}
+            \item $T_1 = \frac{1}{2}(\frac{1}{3}+\frac{1}{3}(\frac{2}{3}+1)) = \frac{4}{9}$
+            \item $T_2 = \frac{1}{2}(\frac{2}{3}+\frac{1}{3}(\frac{1}{3}+1)) = \frac{5}{9}$
+            \item $T_3 = \frac{1}{2}(1+\frac{1}{3}(\frac{1}{3}+\frac{2}{3})) = \frac{2}{3}$
+        \end{enumerate}
+    \end{enumerate}
+
+Write a simulation for this simple 3 agent example in R so that we can toggle the starting abilities of the 3 agents to get examples of different optimal collaborations
+
+\section{Afterthoughts}
+    Does there always exist an equilibrium? Try to construct an example where there is none
+
+\end{enumerate}
+
+\end{document}
